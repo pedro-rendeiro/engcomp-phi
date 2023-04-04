@@ -17,20 +17,11 @@ architecture test of testbench is
 	);
 	end component;
 	
-	component twos_complement is
-	port (
-    pre_result : in std_logic_vector(4 downto 0);
-    pos_result : out std_logic_vector(4 downto 0);
-	 op: in std_logic_vector(0 downto 0)
-	);
-	end component;
-	
 	signal sign_a, sign_b : std_logic_vector(3 downto 0);
-	signal sign_mid_result : std_logic_vector(4 downto 0);
+	signal sign_result : std_logic_vector(4 downto 0);
 	signal sign_op : std_logic_vector(0 downto 0);
 	signal sign_clk : std_logic := '0';
 	signal sign_enable_write : std_logic := '1';
-	signal sign_final_result : std_logic_vector(4 downto 0);
 	
 	
 	-- instância de sd e mapeamento porta => sinal
@@ -40,14 +31,7 @@ begin
 		in_a => sign_a,
 		in_b => sign_b,
 		op => sign_op,
-		result => sign_mid_result
-	);
-	
-	dut2: twos_complement
-	port map (
-    pre_result => sign_mid_result,
-    pos_result => sign_final_result,
-	 op => sign_op
+		result => sign_result
 	);
 	
 	-- processo para ler do arquivo de texto e atribuir aos sinais
@@ -87,7 +71,7 @@ begin
 		if sign_enable_write = '1' then
 			if rising_edge(sign_clk) then
 				-- escreve em uma linha o valor do sinal sign_mid_result convertido para um inteiro
-				WRITE (L, to_integer(unsigned(sign_final_result)));
+				WRITE (L, to_integer(unsigned(sign_result)));
 				-- escreve no arquivo F a linha L
 				WRITELINE (F, L);
 			end if;
