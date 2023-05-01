@@ -5,44 +5,37 @@ entity testbench is
 end testbench;
 
 architecture tb of testbench is
-	component t_reacao
+	component t_reacao is
 	port(
-		clk, rst, comece : in std_logic;
-		a_dados, b_dados : in std_logic_vector(7 downto 0);
-		ab_end : out std_logic_vector(8 downto 0);
-		ab_rd : out std_logic;
-		t_reacao_out : out std_logic_vector(31 downto 0)
+		clk, reset, B : in std_logic;
+		rtempo 		  : out std_logic_vector(11 downto 0)
 	);
 	end component;
 	
-	signal clk, comece : std_logic := '0';
-	signal rst : std_logic := '1';
-	
-	signal ab_rd : std_logic;
-	signal ab_end : std_logic_vector(8 downto 0);
-	signal sads : std_logic_vector(31 downto 0);
-	
-	constant a_dados : std_logic_vector(7 downto 0) := "00000010";
-	constant b_dados : std_logic_vector(7 downto 0) := "00000001";	
-	constant w_array : std_logic_vector(0 to 28)
-		:= "00010000111001100000111100010";
+	signal clk, B : std_logic := '0';
+	signal reset : std_logic := '1';
+	signal rtempo : std_logic_vector(11 downto 0);
 
 begin
-	
-	instancia: sad
+
+	dut: t_reacao
 	port map(
 		clk => clk,
-		rst => rst,
-		comece => comece,
-		a_dados => a_dados,
-		b_dados => b_dados,
-		ab_rd => ab_rd,
-		ab_end => ab_end,
-		t_reacao_out => sads
+		reset => reset,
+		B => B,
+		rtempo => rtempo
 	);
-	
-	
+
+	process(clk)
+		variable init : std_logic := '0';
+	begin
+		if rising_edge(clk) then
+			if init = '0' then
+				init := '1';
+				reset <= '0';
+			end if;
+		end if;
+	end process;
+
 	clk <= not clk after 0.2 ms;
-	rst <= '0' after 1 us;
-	comece <= '1' after 1 us;
 end tb;
