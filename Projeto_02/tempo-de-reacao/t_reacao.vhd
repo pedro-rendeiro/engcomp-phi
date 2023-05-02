@@ -1,10 +1,15 @@
+--library IEEE_PROPOSED;
+--use IEEE_PROPOSED.fixed_pkg.all;
+
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.fixed_pkg.all;
 
 entity t_reacao is
 	port(
 		clk, reset, B : in std_logic;
-		rtempo 		  : out std_logic_vector(11 downto 0)
+		len, lento	  : out std_logic;
+		rtempo 		  : out ufixed(2 downto -9)
 	);
 end t_reacao;
 
@@ -18,9 +23,9 @@ architecture estrutura of t_reacao is
 	
 	component bo is
 	port(
-		clk, inicio, clear, bot, init : in std_logic;
-		len, lento 							: out std_logic;
-		rtempo 								: out std_logic_vector(11 downto 0)
+		clk, comece, bot, clear, init   : in std_logic;
+		len, lento, inicio 				: out std_logic;
+		rtempo 							: out ufixed(1 downto -10)
 	);
 	end component;
 	
@@ -29,15 +34,17 @@ architecture estrutura of t_reacao is
 	signal init   : std_logic;
 	signal comece : std_logic;
 	signal inicio : std_logic;
-	signal lento  : std_logic;
-	signal len	  : std_logic;
+	signal sign_lento : std_logic;
 
 begin
+
+	lento <= sign_lento;
+
 	fsm : bc 
 	port map(
 		clk => clk,
 		reset => reset,
-		lento => lento,
+		lento => sign_lento,
 		B => B,
 		inicio => inicio,
 		comece => comece,
@@ -49,14 +56,14 @@ begin
 	data_path : bo
 	port map(
 		clk => clk,
+		comece => comece,
 		inicio => inicio,
 		clear => clear,
 		init => init,
 		bot => bot,
 		len => len,
-		lento => lento,
+		lento => sign_lento,
 		rtempo => rtempo
 	);
-		
 		
 end estrutura;

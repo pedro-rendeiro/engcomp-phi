@@ -1,5 +1,10 @@
+--library IEEE_PROPOSED;
+--use IEEE_PROPOSED.fixed_pkg.all;
+
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.fixed_pkg.all;
+
 
 entity testbench is
 end testbench;
@@ -8,13 +13,17 @@ architecture tb of testbench is
 	component t_reacao is
 	port(
 		clk, reset, B : in std_logic;
-		rtempo 		  : out std_logic_vector(11 downto 0)
+		len, lento	  : out std_logic;
+		rtempo 		  : out ufixed(1 downto -10)
 	);
 	end component;
 	
-	signal clk, B : std_logic := '0';
+	signal clk : std_logic;
 	signal reset : std_logic := '1';
-	signal rtempo : std_logic_vector(11 downto 0);
+	signal B : std_logic := '0';
+	signal len : std_logic;
+	signal lento : std_logic;
+	signal rtempo : ufixed(1 downto -10);
 
 begin
 
@@ -23,6 +32,8 @@ begin
 		clk => clk,
 		reset => reset,
 		B => B,
+		len => len,
+		lento => lento,
 		rtempo => rtempo
 	);
 

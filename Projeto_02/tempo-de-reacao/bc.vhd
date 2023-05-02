@@ -13,7 +13,7 @@ architecture comportamento of bc is
 	signal prox_estado, estado : tipo_estado := S0;
 begin
 	-- Circuito combinacional -> não depende de clock
-	logica_proximo_estado : process(estado, inicio)
+	logica_proximo_estado : process(estado, inicio, lento, B)
 	begin
 		case estado is
 			when S0 =>
@@ -41,7 +41,7 @@ begin
 	end process;
 	
 	-- Circuito combinacional -> não depende de clock
-	logica_saida : process(estado)
+	logica_saida : process(estado, B)
 	begin
 		case estado is
 			when S0 =>
