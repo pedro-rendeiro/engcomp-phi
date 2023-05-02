@@ -4,7 +4,7 @@ use ieee.std_logic_1164.all;
 entity t_reacao is
 	port(
 		clk, reset, B : in std_logic;
-		rtempo 		  : out real
+		rtempo 		  : out std_logic_vector(11 downto 0)
 	);
 end t_reacao;
 
@@ -20,7 +20,7 @@ architecture estrutura of t_reacao is
 	port(
 		clk, inicio, clear, bot, init : in std_logic;
 		len, lento 							: out std_logic;
-		rtempo 								: out real
+		rtempo 								: out std_logic_vector(11 downto 0)
 	);
 	end component;
 	

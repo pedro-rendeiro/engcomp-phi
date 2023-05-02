@@ -26,6 +26,8 @@ begin
 				if lento = '1' or B = '1' then
 					prox_estado <= S3;
 				end if;
+			when S3 =>
+				prox_estado <= S3;
 		end case;
 	end process;
 	
