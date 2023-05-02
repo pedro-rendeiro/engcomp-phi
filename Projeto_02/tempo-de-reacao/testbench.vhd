@@ -18,7 +18,7 @@ architecture tb of testbench is
 	);
 	end component;
 	
-	signal clk : std_logic;
+	signal clk : std_logic := '0';
 	signal reset : std_logic := '1';
 	signal B : std_logic := '0';
 	signal len : std_logic;
