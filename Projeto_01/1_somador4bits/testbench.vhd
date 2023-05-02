@@ -52,7 +52,7 @@ begin
 	
 	-- processo para ler do arquivo de texto e atribuir aos sinais
 	process(sign_clk)
-		file F: TEXT open READ_MODE is "C:\Users\pedro\OneDrive\fotos\Pedro\UFPA_EngComp\2023.2\phi\Projetos\1_somador4bits\entradas.txt";
+		file F: TEXT open READ_MODE is "C:\Users\pedro\OneDrive\fotos\Pedro\UFPA_EngComp\2023.2\phi\engcomp-phi\Projeto_01\1_somador4bits\entradas.txt";
 		variable L: LINE;
 		variable entrada : integer;
 	begin
@@ -81,7 +81,7 @@ begin
 	
 	-- processo para escrever em um arquivo de texto
 	process(sign_clk)
-		file F: TEXT open WRITE_MODE is "C:\Users\pedro\OneDrive\fotos\Pedro\UFPA_EngComp\2023.2\phi\Projetos\1_somador4bits\saida.txt";
+		file F: TEXT open WRITE_MODE is "C:\Users\pedro\OneDrive\fotos\Pedro\UFPA_EngComp\2023.2\phi\engcomp-phi\Projeto_01\1_somador4bits\saida.txt";
 		variable L: LINE;
 	begin
 		if sign_enable_write = '1' then
