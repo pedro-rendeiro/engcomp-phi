@@ -8,7 +8,7 @@ entity bo is
 	port(
 		clk, comece, bot, clear, init   : in std_logic;
 		len, lento, inicio 				: out std_logic;
-		rtempo 							: out std_logic_vector(11 downto 0)
+		rtempo 							: out std_logic_vector(6 downto -5)
 	);
 end bo;
 
@@ -22,12 +22,9 @@ begin
 	contador : process(clk, clear, comece, init)
 	begin
 		if clear = '0' then
-			-- if comece = '1' then
 			if rising_edge(clk) then
---				cont_reg <= std_logic_vector(to_unsigned(cont_reg, 15));
 				cont_reg <= cont_reg + clock_period;
 			end if;
-			-- end if;
 			if falling_edge(comece) then
 				cont_reg <= (others => '0');
 			end if;
@@ -42,7 +39,7 @@ begin
 	reg_len : process(init, bot, clk, clear)
 	begin
 		if clear = '0' then
-			if cont_reg >= b"0110000110101000" then
+			if cont_reg >= 10.0 then
 				inicio <= '1';
 				len <= '1';
 			end if;
@@ -52,10 +49,10 @@ begin
 					len <= '0';
 					rtempo <= std_logic_vector(resize(to_integer(cont_reg) * 0.0004, rtempo'length));
 				end if;
-				if cont_reg >= b"0001001110001000" then
+				if cont_reg >= 2.0 then
 					len <= '0';
 					lento <= '1';
-					rtempo <= std_logic_vector(to_unsigned(2, 12));
+					rtempo <= std_logic_vector(to_unsigned(2.0, 12));
 				end if;
 			end if;
 		else
