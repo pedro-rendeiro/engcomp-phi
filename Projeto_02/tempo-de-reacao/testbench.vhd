@@ -49,4 +49,5 @@ begin
 	end process;
 
 	clk <= not clk after 0.2 ms;
+	B <= not B after 10.4 sec;
 end tb;

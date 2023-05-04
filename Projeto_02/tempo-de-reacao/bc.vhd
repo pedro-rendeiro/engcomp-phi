@@ -4,7 +4,7 @@ use IEEE.STD_LOGIC_1164.all;
 entity bc is
 	port(
 		clk, reset, lento, B, inicio : in std_logic;
-		comece, bot, clear, init	  : out  std_logic
+		bot, clear, init	  : out  std_logic
 	);
 end bc;
 
@@ -45,22 +45,18 @@ begin
 	begin
 		case estado is
 			when S0 =>
-				comece <= '0';
 				bot <= '0';
 				clear <= '1';
 				init <= '0';
 			when S1 =>
-				comece <= '1';
 				bot <= '0';
 				clear <= '0';
 				init <= '0';
 			when S2 =>
-				comece <= '0';
 				bot <= B;
 				clear <= '0';
 				init <= '1';
 			when S3 =>
-				comece <= '0';
 				bot <= '0';
 				clear <= '0';
 				init <= '0';

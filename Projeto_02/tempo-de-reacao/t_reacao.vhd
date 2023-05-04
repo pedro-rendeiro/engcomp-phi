@@ -17,13 +17,13 @@ architecture estrutura of t_reacao is
 	component bc is
 	port(
 		clk, reset, lento, B, inicio : in std_logic;
-		comece, bot, clear, init	  : out  std_logic
+		bot, clear, init	  : out  std_logic
 	);
 	end component;
 	
 	component bo is
 	port(
-		clk, comece, bot, clear, init   : in std_logic;
+		clk, bot, clear, init   : in std_logic;
 		len, lento, inicio 				: out std_logic;
 		rtempo 							: out ufixed(1 downto -10)
 	);
@@ -32,7 +32,6 @@ architecture estrutura of t_reacao is
 	signal bot    : std_logic;
 	signal clear  : std_logic;
 	signal init   : std_logic;
-	signal comece : std_logic;
 	signal inicio : std_logic;
 	signal sign_lento : std_logic;
 
@@ -47,7 +46,6 @@ begin
 		lento => sign_lento,
 		B => B,
 		inicio => inicio,
-		comece => comece,
 		bot => bot,
 		clear => clear,
 		init => init
@@ -56,7 +54,6 @@ begin
 	data_path : bo
 	port map(
 		clk => clk,
-		comece => comece,
 		inicio => inicio,
 		clear => clear,
 		init => init,
